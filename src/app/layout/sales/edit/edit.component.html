@@ -1,0 +1,119 @@
+<div class="alert alert-warning" *ngIf="message">
+  <strong>{{ message }}</strong>
+</div>
+<div class="card mb-3">
+  <div class="card-header">
+      Edit Sale
+  </div>
+</div>
+  <form role="form" (ngSubmit)="UpdateSale(SaleId.value, ProductName.value, AddedBy.value, MRP.value, 
+  CostPrice.value, Quantity.value, Discount.value, StartDate.value, CategoryName.value,  SubCategoryName.value, 
+  SoldBy.value, DiscountGiven.value, SaleDate.value, SoldPrice.value)" *ngIf="saleToEdit">
+    <br>
+    <div class="row">
+        <div class="col-lg-6">
+          <fieldset class="form-group">
+              <input type="hidden" #SaleId ngModel name="SaleId" [(ngModel)]="saleToEdit.id">
+              <div class="row">
+                  <div class="col-xl-6 text-xs-center">
+                      <label>Name of the Product</label>
+                      <input class="form-control" #ProductName ngModel name="ProductName" [(ngModel)]="saleToEdit.name">
+                  </div>
+                  <div class="col-xl-6 text-xs-center">
+                      <label>Sold By</label>
+                      <input class="form-control" #SoldBy ngModel name="SoldBy" [(ngModel)]="saleToEdit.sold_by">
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-xl-6 text-xs-center">
+                      <label>Added By</label>
+                      <input class="form-control" #AddedBy ngModel name="AddedBy" [(ngModel)]="saleToEdit.added_by">
+                  </div>
+                  <div class="col-xl-6 text-xs-center">
+                    <label>MRP</label>
+                    <input class="form-control" #MRP ngModel name="MRP" [ngModel]="saleToEdit.mrp">
+                  </div>
+                </div>
+              <br>
+              <div class="row">
+                  <div class="col-xl-6 text-xs-center">
+                      <label>Date of purchase</label>
+                      <div class="form-group">
+                        <div class="input-group datepicker-input">
+                          <input class="form-control" #StartDate
+                          ngModel name="StartDate" [(ngModel)]="startDate" ngbDatepicker #d="ngbDatepicker">
+                          <button class="input-group-addon" (click)="d.toggle()" type="button">
+                            <span class="fa fa-calendar"></span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                <div class="col-xl-6 text-xs-center">
+                  <label>Date of sale</label>
+                  <div class="form-group">
+                    <div class="input-group datepicker-input">
+                      <input class="form-control" #SaleDate
+                      ngModel name="SaleDate" [(ngModel)]="saleDate" ngbDatepicker #d="ngbDatepicker">
+                      <button class="input-group-addon" (click)="d.toggle()" type="button">
+                        <span class="fa fa-calendar"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                
+                
+              </div>
+              
+              <br>
+              <div class="row">
+                <div class="col-xl-6 text-xs-center">
+                  <label>Select Category</label>
+                  <select class="form-control" #CategoryName ngModel name="CategoryName" (change)="CategorySelected($event.target.value)" [ngModel]="saleToEdit.category">
+                    <option *ngFor ="let category of categories" value = {{category.name}} [selected]="category.name == saleToEdit.category" >{{ category.name}}</option>
+                  </select>
+                </div>
+                <div class="col-xl-6 text-xs-center">
+                  <label>Select Sub-Category</label>
+                  <select class="form-control" #SubCategoryName ngModel name="SubCategoryName" [ngModel]="saleToEdit.subCategory">
+                    <option *ngFor ="let subCategory of subCategories" value = {{subCategory.name}} [selected]="subCategory.name == saleToEdit.subCategory">{{ subCategory.name}}</option>
+                  </select>
+                </div>
+              </div>
+              
+              <br>
+              <div class="row">
+                <div class="col-xl-6 text-xs-center">
+                  <label>Cost Price</label>
+                  <input class="form-control" #CostPrice ngModel name="CostPrice" [ngModel]="saleToEdit.costprice">
+                </div>
+                <div class="col-xl-6 text-xs-center">
+                  <label>Price Sold on</label>
+                  <input class="form-control" #SoldPrice ngModel name="SoldPrice" [ngModel]="saleToEdit.sold_price">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-xl-6 text-xs-center">
+                  <label>Discount-%</label>
+                  <input class="form-control" #Discount ngModel name="Discount" [ngModel]="saleToEdit.discount">
+                </div>
+                <div class="col-xl-6 text-xs-center">
+                  <label>Discount Given-%</label>
+                  <input class="form-control" #DiscountGiven ngModel name="DiscountGiven" [ngModel]="saleToEdit.discount_given">
+                </div>
+              </div>
+              
+            </fieldset>
+          
+        </div>
+        
+        <div class="col-lg-6">
+            <div class="col-xl-6 text-xs-center">
+                <label>Quantity Sold</label>
+                <input class="form-control" #Quantity ngModel name="Quantity" [ngModel]="saleToEdit.quantity">
+              </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

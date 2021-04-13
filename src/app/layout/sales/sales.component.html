@@ -1,0 +1,115 @@
+<div style="min-height: 800px">
+    <ngx-ui-loader fgsSize = "0" bgsSize = "0" pbThickness = "4" pbColor = "#4CAF50" [loaderId]="'loader-01'" style="min-height: 100%"></ngx-ui-loader>
+    <div class="alert alert-success" *ngIf="message">
+        <strong>{{ message }}</strong>
+      </div>
+      <div class="card mb-3">
+        <div class="card-header">
+            Sales
+            
+            <button type="button" class="btn btn-outline-success" (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed" aria-controls="FilterCollapse" style="float: right;">
+            Filters
+        </button>
+      </div>
+      <div id="FilterCollapse" [ngbCollapse]="isCollapsed">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-sm-2">
+                      <label><b>Categories</b></label>
+                      <div *ngFor="let category of categories">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" id="C{{category.name}}" name="Category" [(ngModel)] ="optionsCategory" value="{{category.id}}"> {{category.name}}
+                            </label>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-group col-sm-2">
+                    <label><b>Sub-Categories</b></label>
+                    <div *ngFor="let subcategory of subCategories">
+                      <div class="radio">
+                          <label>
+                              <input type="radio" id="S{{subcategory.name}}" name="SubCategory" [(ngModel)] ="optionsSubCategory" value="{{subcategory.id}}"> {{subcategory.name}}
+                          </label>
+                      </div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-2">
+                      <label><b>Product Name</b></label>
+                      <input class="form-control" #ProductName ngModel name="ProductName" placeholder="Enter name">
+                </div>
+                <div class="col-sm-2 text-xs-center">
+                      <label><b>Start Date</b></label>
+                      <div class="form-group">
+                        <div class="input-group datepicker-input">
+                          <input class="form-control" #StartDate
+                          ngModel name="StartDate" ngbDatepicker #d="ngbDatepicker">
+                          <button class="input-group-addon" (click)="d.toggle()" type="button">
+                            <span class="fa fa-calendar"></span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                <div class="col-sm-2 text-xs-center">
+                      <label><b>End Date</b></label>
+                      <div class="form-group">
+                        <div class="input-group datepicker-input">
+                          <input class="form-control" #EndDate
+                          ngModel name="EndDate" ngbDatepicker #n="ngbDatepicker">
+                          <button class="input-group-addon" (click)="n.toggle()" type="button">
+                            <span class="fa fa-calendar"></span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2 text-xs-center">
+                          <button type="button" class="btn btn-outline-info" (click)="ApplyFilter(ProductName.value, 
+                          StartDate.value, EndDate.value)" style="float:right">
+                                  Apply
+                                </button>
+                        </div>
+          </div>
+                
+            </div>
+        </div>
+        </div>
+        <div class="card-body table-responsive">
+            <table class="table" datatable [dtOptions]="dtOptions"
+            [dtTrigger]="dtTrigger">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Product Name</th>
+                    <th>Store Name</th>
+                    <th>Sold By</th>
+                    <th>Quantity Sold</th>
+                    <th>Discount</th>
+                    <th>M.R.P.</th>
+                    <th>Price sold on</th>
+                    <th>Product Image</th>
+                    <th *ngIf="canView"></th>
+                    <th *ngIf="canView"></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor ="let sale of sales">
+                          <th scope="row">{{ sale.id }}</th>
+                          <td>{{ sale.name }}</td>
+                          <td>{{ sale.storeName }}</td>
+                          <td>{{ sale.sold_by }}</td>
+                          <td>{{ sale.quantity }}</td>
+                          <td>{{ sale.discount_given }}%</td>
+                          <td>{{ sale.mrp }}</td>
+                          <td>{{ sale.sold_price }}</td>
+                          <td><img src= {{sale.imagepath}} width="50"></td>
+                          <td><button type="button" class="btn btn-sm btn-success" (click)="edit(sale.id)" *ngIf="canView">Edit</button></td>
+                          
+                          <td><button type="button" class="btn btn-sm btn-danger" (click)="delete(sale.id)" *ngIf="canView">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+</div>

@@ -1,0 +1,94 @@
+<div style="min-height: 800px">
+  <ngx-ui-loader fgsSize = "0" bgsSize = "0" pbThickness = "4" pbColor = "#4CAF50" [loaderId]="'loader-01'" style="min-height: 100%"></ngx-ui-loader>
+  <div class="alert alert-success" *ngIf="message">
+      <strong>{{ message }}</strong>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header">
+          <div class="row">
+            <div class="col-lg-2">
+              <fieldset class="form-group">
+                  <label>History</label>
+                  <select class="form-control" #StoreName ngModel name="StoreName" [(ngModel)]="selectedStore" *ngIf="canView" (change)="StoreSelected($event.target.value)">
+                    <option *ngFor ="let store of stores" value = {{store.id}} [selected]="store.id == selectedStore">{{ store.name}}</option>
+                  </select>
+                </fieldset>
+          <button type="button" class="btn btn-outline-success" (click)="isCollapsed = !isCollapsed"
+          [attr.aria-expanded]="!isCollapsed" aria-controls="FilterCollapse" style="float: right;">
+          Filters
+      </button>
+    </div>
+  </div>
+    </div>
+    <div id="FilterCollapse" [ngbCollapse]="isCollapsed">
+      <div class="card">
+          <div class="card-body">
+              <div class="row">
+              <div class="form-group col-sm-2">
+                    <label><b>Bill number</b></label>
+                    <input class="form-control" #ProductName ngModel name="ProductName" placeholder="Enter name">
+              </div>
+              <div class="col-sm-2 text-xs-center">
+                    <label><b>Start Date</b></label>
+                    <div class="form-group">
+                      <div class="input-group datepicker-input">
+                        <input class="form-control" #StartDate
+                        ngModel name="StartDate" ngbDatepicker #d="ngbDatepicker">
+                        <button class="input-group-addon" (click)="d.toggle()" type="button">
+                          <span class="fa fa-calendar"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+              <div class="col-sm-2 text-xs-center">
+                    <label><b>End Date</b></label>
+                    <div class="form-group">
+                      <div class="input-group datepicker-input">
+                        <input class="form-control" #EndDate
+                        ngModel name="EndDate" ngbDatepicker #n="ngbDatepicker">
+                        <button class="input-group-addon" (click)="n.toggle()" type="button">
+                          <span class="fa fa-calendar"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-2 text-xs-center">
+                        <button type="button" class="btn btn-outline-info" (click)="ApplyFilter(ProductName.value, 
+                        StartDate.value, EndDate.value)" style="float:right">
+                                Apply
+                              </button>
+                      </div>
+        </div>
+              
+          </div>
+      </div>
+      </div>
+      <div class="card-body table-responsive">
+          <table id="bill-table" class="table" datatable [dtOptions]="dtOptions"
+          [dtTrigger]="dtTrigger">
+              <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Customer Name</th>
+                  <th>Entered By</th>
+                  <th>Payment method</th>
+                  <th>Bill Number</th>
+                  <th></th>
+                  <th></th>
+              </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor ="let sale of sales">
+                        <th scope="row">{{ sale.id }}</th>
+                        <td>{{ sale.customer_name }}</td>
+                        <td>{{ sale.entered_by }}</td>
+                        <td>{{ sale.payment_by }}</td>
+                        <td>{{ sale.bill_number }}</td>
+                        <td><button type="button" class="btn btn-sm btn-info" (click)="Items(sale.id)">Items</button></td>
+                        <td><button type="button" class="btn btn-sm btn-danger" (click)="Details(sale.id)">Details</button></td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+    </div>
+</div>

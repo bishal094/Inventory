@@ -1,0 +1,102 @@
+<div style="min-height: 800px">
+        <ngx-ui-loader fgsSize = "0" bgsSize = "0" pbThickness = "4" pbColor = "#4CAF50" [loaderId]="'loader-01'" style="min-height: 100%"></ngx-ui-loader>
+    <h2 class="text-muted">Statistics <small> Overview  for {{graphMonth}} of {{currYear}}</small></h2>
+    <hr>
+    <div class="flex-container" *ngIf = "content" >
+        <div style="flex-grow: 1">
+            <app-stat [link]="['/product']" [bgClass]="'primary'" [npr] = "'NPR'" [icon]="'fa-shopping-cart'" [count]="content.total_purchase" [label]="'Purchases'"></app-stat>
+        </div>
+        <div style="flex-grow: 1">
+            <app-stat [link]="['/sales']" [bgClass]="'warning'" [npr] = "'NPR'" [icon]="'fa fa-money'" [count]="content.total_sales" [label]="'Sales'"></app-stat>
+        </div>
+        <div style="flex-grow: 1">
+            <app-stat [link]="['/stock']" [bgClass]="'info'" [icon]="'fa fa-tasks'" [count]="content.total_products_in_stock" [label]="'Stock Count'"></app-stat>
+        </div>
+        <div style="flex-grow: 1">
+            <app-stat [link]="['/stock']" [bgClass]="'secondary'" [npr] = "'NPR'" [icon]="'fa fa-money'" [count]="profitLoss" [label]="'Stock'"></app-stat>
+        </div>
+        <div style="flex-grow: 1">
+            <app-stat [link]="['/']" [bgClass]="profitLossColor" [npr] = "'NPR'" [icon]="profitLossIcon" [count]="profitLoss" [label]="'Profit/Loss'"></app-stat>
+        </div>
+    </div>
+    <!-- <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert> -->
+    <hr />
+    <div class="row">
+        <div class="col col-sm-3">
+            <label>Year</label>
+            <select class="form-control" #Year ngModel name="Year" [(ngModel)]="currYear">
+              <option *ngFor ="let year of years" value = {{year}} [selected]="year == currYear">{{ year }}</option>
+            </select>
+            <br>
+            <label>Month</label>
+            <select class="form-control" #Month ngModel name="Month" [(ngModel)]="monthName">
+                <option *ngFor ="let month of months" value = {{month}} [selected]="month == monthName">{{ month }}</option>
+            </select>
+            <br>
+            <button class="btn btn-primary" (click)="ApplyDate(Month.value,Year.value)"> Apply</button>
+        </div>
+        <div class="col col-sm-8">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Data of sales and purchase for month: {{graphMonth}} of {{currYear}}
+                </div>
+                <div class="card-body" *ngIf="lineChartData">
+                    <canvas baseChart #baseChart="base-chart" height="130" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+            
+            <div class="col col-sm-6">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            Stock By Stores
+                        </div>
+                        <div class="card-body">
+                            <canvas *ngIf="loaded" baseChart stockChart [datasets]="stockChartData" [labels]="stockChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [colors]="stockChartColors" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                            </canvas>
+                        </div>
+                    </div>
+            </div>
+            <div class="col col-sm-6">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            Sales by Stores
+                        </div>
+                        <div class="card-body">
+                            <canvas *ngIf="loaded" baseChart salesChart [datasets]="salesChartData" [labels]="salesChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [colors]="salesChartColors" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                            </canvas>
+                        </div>
+                    </div>
+            </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- <div class="card card-default">
+                <div class="card-header">
+                    <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
+                </div>
+                <app-timeline></app-timeline>
+            </div> -->
+            <!-- /.card -->
+        </div>
+        <!-- /.col-lg-8 -->
+        <div class="col-lg-4">
+            <!-- <div class="card card-default mb-3">
+                <div class="card-header">
+                    <i class="fa fa-bell fa-fw"></i> Notifications card
+                </div>
+                <app-notification></app-notification>
+            </div> -->
+            <!-- /.card -->
+
+            <!-- <app-chat></app-chat> -->
+            <!-- /.card .chat-card -->
+        </div>
+        <!-- /.col-lg-4 -->
+    </div>
+</div>

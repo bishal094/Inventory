@@ -1,0 +1,46 @@
+<div class="card mb-3">
+    <div class="alert alert-danger" *ngIf="message">
+      <strong>{{ message }}</strong>
+    </div>
+    <div class="card-header">
+        Add a new Store
+    </div>
+  </div>
+    <form role="form" (ngSubmit)="AddStore(StoreName.value, StoreLocation.value, StoreDescription.value)">
+      <br>
+      <div class="row">
+          <div class="col-lg-3">
+            <fieldset class="form-group">
+                <label>Name of the Store</label>
+                <input class="form-control" #StoreName ngModel name="StoreName" placeholder="Enter name">
+                <br>
+                <label>Location</label>
+                <input class="form-control" #StoreLocation ngModel name="StoreLocation" placeholder="Enter Location">
+                <br>
+                <label>Description</label>
+                <textarea class="form-control" rows="3"#StoreDescription ngModel name="StoreDescription"></textarea>
+            </fieldset>
+          </div>
+          <div class="col-lg-3">
+              <div class="form-group">
+                  <label class="checkbox-inline">
+                      <input type="checkbox" #GoDownFlag ngModel name="GoDownFlag" [(ngModel)]="GoDown" (onClick)="checkboxChecked()"> Godown
+                  </label>
+                </div>
+            </div>
+      </div>
+      <div class="form-group col-lg-3">
+        
+      </div>
+      <button type="submit" class="btn btn-primary">Add</button>
+      <!-- <div class="form-content">
+          <div class="form-group">
+              <input type="text" #UserName ngModel name="UserName" class="form-control input-underline input-lg" id="" placeholder="{{ 'UserName' | translate }}" required>
+          </div>
+  
+          <div class="form-group">
+              <input type="password" #Password ngModel name="Password" class="form-control input-underline input-lg" id="" placeholder="{{ 'Password' | translate }}">
+          </div>
+      </div>
+      <a class="btn rounded-btn" (click)="onLoggedin(UserName.value, Password.value)">{{ 'Log in' | translate }}</a> -->
+  </form>

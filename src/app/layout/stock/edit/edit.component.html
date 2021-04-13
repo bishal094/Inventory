@@ -1,0 +1,23 @@
+<div class="alert alert-warning" *ngIf="message">
+  <strong>{{ message }}</strong>
+</div>
+<div class="card mb-3" *ngIf = "StockToEdit">
+  <div class="card-header">
+      Edit Stock for Product: "{{ StockToEdit.name }}", in Store:
+      "{{StockToEdit.storeName}}"
+  </div>
+</div>
+  <form role="form" (ngSubmit)="UpdateStock(StockToEdit, Quantity.value)" *ngIf = "StockToEdit">
+    <br>
+    <div class="row">
+        <div class="col-lg-3">
+          <fieldset class="form-group">
+              <label>Quantity</label>
+              <input type="hidden" #CategoryId ngModel name="StockId" [(ngModel)]="StockToEdit.id">
+              <input class="form-control" #Quantity ngModel name="Quantity" [(ngModel)]="StockToEdit.stock_quantity">
+          </fieldset>
+        </div>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-primary" *ngIf="isUpdate">Update</button>
+    <button type="button" class="btn btn-info" (click)="AddAmount(Quantity.value)" *ngIf="!isUpdate">Add Stock</button>
+</form>

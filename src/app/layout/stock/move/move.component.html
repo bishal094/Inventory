@@ -1,0 +1,47 @@
+<div class="card mb-3">
+  <div class="alert alert-danger" *ngIf="message">
+      <strong>{{ message }}</strong>
+    </div>
+<div class="card-header">
+    Move stock | availible in store: {{ StockToMove.stock_quantity }}
+</div>
+</div>
+<form role="form" (ngSubmit)="AddStoreQuantity(StoreTo.value, QuantityValue.value)">
+  <br>
+  <div class="row">
+      <div class="col-sm-6">
+        <fieldset class="form-group">
+            <div class="row">
+              <div class="col-xl-6 text-xs-center">
+                <label>Move From store:</label>
+                <input class="form-control" #fromStore ngModel name="fromStore" disabled="" [(ngModel)]="StoreFrom">
+              </div>
+              <div class="col-xl-6 text-xs-center">
+                <label>Move To store:</label>
+                <select class="form-control" #StoreTo ngModel name="StoreTo">
+                  <option *ngFor ="let store of toStores" value = {{store.id}} >{{ store.name}}</option>
+                </select>
+              </div>
+            </div>
+            
+          </fieldset>
+        
+      </div>
+      <div class="col-lg-6">
+        <fieldset class="form-group">
+          <div class="row">
+            <div class="col-xl-3 text-xs-center">
+              <label>Quantity</label>
+              <input class="form-control" #QuantityValue ngModel name="QuantityValue" placeholder="" (keyup) = QuantityChanged($event)>
+            </div>
+            <br>
+            <br>
+            <div class="col-xl-3 text-xs-center">
+                <button type="submit" style="position: absolute;bottom: 0%;" class="btn btn-success">Move</button>
+            </div>
+          </div>
+        </fieldset>
+        <br>
+      </div>
+  </div>
+</form>

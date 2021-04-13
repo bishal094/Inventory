@@ -1,0 +1,43 @@
+<div class="card mb-3">
+    <div class="alert alert-danger" *ngIf="error">
+      <strong>{{ error }}</strong>
+    </div>
+    <div class="card-header">
+        Add a new User
+    </div>
+  </div>
+  <form role="form" (ngSubmit)="Register(UserName.value, Email.value, Password.value, ConfirmPassword.value)">
+    <div class="form-content">
+        <div class="form-group col-lg-3">
+            <input type="text" class="form-control input-underline input-sm" #UserName ngModel name="UserName" placeholder="{{ 'UserName' | translate }}">
+        </div>
+
+        <div class="form-group col-lg-3">
+            <input type="text" class="form-control input-underline input-lg" #Email ngModel name="Email" placeholder="{{ 'Email' | translate }}">
+        </div>
+
+        <div class="form-group col-lg-3">
+            <input type="password" class="form-control input-underline input-lg" #Password ngModel name="Password" placeholder="{{ 'Password' | translate }}">
+        </div>
+        <div class="form-group col-lg-3">
+            <input type="password" class="form-control input-underline input-lg" #ConfirmPassword ngModel name="ConfirmPassword" placeholder="{{ 'Repeat Password' | translate }}">
+        </div>
+        <div class="form-group col-lg-3" *ngIf="isSadmin">
+            <label>Select Store</label>
+              <select class="form-control" #StoreName ngModel name="StoreName" (change)="StoreSelected($event.target.value)">
+                <option *ngFor ="let store of stores" value = {{store.id}}>{{ store.name}}</option>
+              </select>
+        </div>
+        
+        <fieldset class="form-group col-lg-3" *ngIf="isSadmin">
+            <label>Select Role: &nbsp;</label>
+            <label class="radio-inline">
+                <input type="radio" #optionsRadiosInline ng-model="radio.value" name="optionsRadiosInline" (click)="changeRole($event)" id="optionsRadiosInline1" value="user" checked=""> User &nbsp;
+            </label>
+            <label class="radio-inline">
+                <input type="radio" #optionsRadiosInline ng-model="radio.value" name="optionsRadiosInline" (click)="changeRole($event)" id="optionsRadiosInline2" value="admin"> Admin 
+            </label>
+        </fieldset>
+    </div>
+    <button class="btn btn-primary" type="submit">{{ 'Register' | translate }}</button>&nbsp;
+</form>

@@ -1,0 +1,23 @@
+<div class="card mb-3">
+  <div class="card-header">Bill Items &nbsp; &nbsp;
+  </div>
+  <!-- &nbsp; &nbsp; &nbsp; &nbsp;<img src="{{product.imagepath}}" width="100" class="center" *ngIf="product.imagepath"> -->
+  <div class="card-body table-responsive">
+    <table class="table" >
+        <thead>
+        <tr>
+            <th>Items</th>
+            <th>Quantity</th>
+            <th>Discount given</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor ="let sale of sales">
+                  <th scope="row">{{ sale.name }}</th>
+                  <td>{{ sale.quantity }} pcs</td>
+                  <td>{{ sale.discount_given }} %</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>

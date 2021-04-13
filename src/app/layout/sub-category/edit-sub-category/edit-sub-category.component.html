@@ -1,0 +1,32 @@
+<div class="alert alert-success" *ngIf="message">
+  <strong>{{ message }}</strong>
+</div>
+<div class="card mb-3">
+  <div class="card-header">
+      Edit Sub-Category
+  </div>
+</div>
+  <form role="form" (ngSubmit)="UpdateSubCategory(SubCategoryName.value, CategoryName.value, SubCategoryId.value)">
+    <br>
+    <div class="row">
+        <div class="col-lg-3">
+          <fieldset class="form-group">
+              <label>Name for the Sub-category</label>
+              <input class="form-control" #SubCategoryName ngModel name="SubCategoryName" [(ngModel)]="subCategoryToEdit.name">
+              <br>
+              <input type="hidden" #SubCategoryId ngModel name="SubCategoryId" [(ngModel)]="subCategoryToEdit.id">
+              <label>Select Category</label>
+              <select class="form-control" #CategoryName ngModel name="CategoryName" [(ngModel)]="subCategoryToEdit.category_name">
+                <option *ngFor ="let category of categories" value = {{category.name}} [selected]="category.name == subCategoryToEdit.category_name">{{ category.name}}</option>
+              </select>
+              <br>
+              <!-- <label for="InputFile">Image</label>
+              <input type="file" accept="image/*" class="form-control-file" name="SubCategoryImage" id="InputFile" (change)="handleFileInput($event)"> -->
+          </fieldset>
+        </div>
+    </div>
+    <div class="form-group col-lg-3">
+      
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+  </form>

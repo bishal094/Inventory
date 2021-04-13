@@ -1,0 +1,201 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+    <div class="list-group">
+        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf = "canView">
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+            <span>{{ 'Dashboard' | translate }}</span>
+        </a>
+        <div class="nested-menu" *ngIf = "canView">
+            <a class="list-group-item" (click)="addExpandClass('store')">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Stores' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'store'">
+                <ul class="submenu">
+                    
+                    <li>
+                        <a [routerLink]="['/stores']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'List' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/stores/addStore']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Add a Store' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+    </div>
+        <div class="nested-menu" *ngIf = "canView">
+            <a class="list-group-item" (click)="addExpandClass('category')">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Category' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'category'">
+                <ul class="submenu">
+                    
+                    <li>
+                        <a [routerLink]="['/category']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'List' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/category/addcategory']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Add Category' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <div class="nested-menu" *ngIf = "canView">
+                <a class="list-group-item" (click)="addExpandClass('subCategory')">
+                    <i class="fa fa-plus"></i>&nbsp;
+                    <span>{{ 'Sub-Category' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'subCategory'">
+                    <ul class="submenu">
+                        
+                        <li>
+                            <a [routerLink]="['/subCategory']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                <i class="fa fa-monument"></i>&nbsp;
+                                <span>{{ 'List' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/subCategory/addSubCategory']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                <i class="fa fa-monument"></i>&nbsp;
+                                <span>{{ 'Add Sub-Category' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+        </div>
+        <div class="nested-menu" *ngIf = "canView">
+                <a class="list-group-item" (click)="addExpandClass('product')">
+                    <i class="fa fa-plus"></i>&nbsp;
+                    <span>{{ 'Products' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'product'">
+                    <ul class="submenu">
+                        
+                        <li>
+                            <a [routerLink]="['/product']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                <i class="fa fa-monument"></i>&nbsp;
+                                <span>{{ 'List' | translate }}</span>
+                            </a>
+                        </li>
+                        <li *ngIf = "canView">
+                                <a [routerLink]="['/product/log']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                    <i class="fa fa-monument"></i>&nbsp;
+                                    <span>{{ 'Log' | translate }}</span>
+                                </a>
+                        </li>
+                    </ul>
+                </li>
+        </div>
+        <div class="nested-menu" *ngIf = "canView">
+                <a class="list-group-item" (click)="addExpandClass('user')">
+                    <i class="fa fa-plus"></i>&nbsp;
+                    <span>{{ 'Users' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'user'">
+                    <ul class="submenu">
+                        
+                        <li>
+                            <a [routerLink]="['/users']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                <i class="fa fa-monument"></i>&nbsp;
+                                <span>{{ 'List' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/signup']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                <i class="fa fa-monument"></i>&nbsp;
+                                <span>{{ 'Add User' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+        </div>
+        <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('stock')">
+                    <i class="fa fa-plus"></i>&nbsp;
+                    <span>{{ 'Stock' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'stock'">
+                    <ul class="submenu">
+                        
+                        <li>
+                            <a [routerLink]="['/stock']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                <i class="fa fa-monument"></i>&nbsp;
+                                <span>{{ 'List All' | translate }}</span>
+                            </a>
+                        </li>
+                        <li *ngIf = "canView">
+                            <a [routerLink]="['/stock/godownStocks']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                <i class="fa fa-monument"></i>&nbsp;
+                                <span>{{ 'Godown' | translate }}</span>
+                            </a>
+                        </li>
+                        <li *ngIf = "canView">
+                            <a [routerLink]="['/stock/log']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                <i class="fa fa-monument"></i>&nbsp;
+                                <span>{{ 'Log' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+        </div>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('sales')">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Sales' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'sales'">
+                <ul class="submenu">
+                    <li *ngIf = "canView">
+                        <a [routerLink]="['/sales']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'History' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/sales/stocks']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Add' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <div class="nested-menu">
+            <a [routerLink]="['/users/changePassword']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-user"></i>&nbsp;
+                <span>{{ 'Change password' | translate }}</span>
+            </a>
+        </div>
+
+        <div class="header-fields">
+            <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('profile')">
+                    <span><i class="fa fa-user"></i>&nbsp; {{userName}}</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'profile'">
+                    <ul class="submenu">
+                        <li>
+                            <a [routerLink]="['/login']" (click)="onLoggedout()">
+                                <span><i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </div>
+    <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        <i class="fa fa-fw fa-angle-double-left"></i>&nbsp;
+        <span>{{ 'Collapse Sidebar' | translate }}</span>
+    </div>
+</nav>

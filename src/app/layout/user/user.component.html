@@ -1,0 +1,35 @@
+<div [@routerTransition] style="min-height: 750px">
+    <ngx-ui-loader fgsSize = "0" bgsSize = "0" pbThickness = "4" pbColor = "#4CAF50" [loaderId]="'loader-01'" style="min-height: 100%"></ngx-ui-loader>
+    <div class="alert alert-success" *ngIf="message">
+        <strong>{{ message }}</strong>
+      </div>
+      <div class="card mb-3">
+        <div class="card-header">
+            Users
+            &nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary" (click)="Add()">
+              Add
+            </button>
+        </div>
+        <div class="card-body table-responsive">
+            <table class="table" datatable [dtOptions]="dtOptions"
+            [dtTrigger]="dtTrigger">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor ="let user of users">
+                          <th scope="row">{{ user.id }}</th>
+                          <td>{{ user.username }}</td>
+                          <td>{{ user.email }}</td>
+                          <td>{{ user.role }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+</div>

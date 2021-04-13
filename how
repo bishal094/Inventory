@@ -1,0 +1,9 @@
+[33m5ec4b20[m[33m ([m[1;36mHEAD -> [m[1;32mrecover[m[33m)[m HEAD@{0}: reset: moving to HEAD@{6}
+[33mc6b456d[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{1}: reset: moving to c6b456d
+[33m5ec4b20[m[33m ([m[1;36mHEAD -> [m[1;32mrecover[m[33m)[m HEAD@{2}: checkout: moving from 5ec4b20f39d9131d84c8de948214319e87398ed3 to recover
+[33m5ec4b20[m[33m ([m[1;36mHEAD -> [m[1;32mrecover[m[33m)[m HEAD@{3}: reset: moving to HEAD@{3}
+[33mc6b456d[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{4}: checkout: moving from master to c6b456d
+[33mc6b456d[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{5}: checkout: moving from master to master
+[33mc6b456d[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{6}: reset: moving to HEAD~1
+[33m5ec4b20[m[33m ([m[1;36mHEAD -> [m[1;32mrecover[m[33m)[m HEAD@{7}: commit: Deployment
+[33mc6b456d[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{8}: commit (initial): Deploy

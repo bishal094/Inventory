@@ -1,0 +1,17 @@
+<div class="card mb-3">
+  <div class="card-header">
+      Add a new Category
+  </div>
+</div>
+  <form role="form" (ngSubmit)="AddCategory(CategoryName.value)">
+    <br>
+    <div class="row">
+        <div class="col-lg-3">
+          <fieldset class="form-group">
+              <label>Name for the category</label>
+              <input class="form-control" #CategoryName ngModel name="CategoryName" placeholder="Enter text">
+          </fieldset>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>

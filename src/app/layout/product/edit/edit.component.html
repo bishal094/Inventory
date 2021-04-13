@@ -1,0 +1,87 @@
+<div class="alert alert-warning" *ngIf="message">
+  <strong>{{ message }}</strong>
+</div>
+<div class="card mb-3">
+  <div class="card-header">
+      Edit Product
+  </div>
+</div>
+  <form role="form" (ngSubmit)="UpdateProduct(ProductId.value, ProductName.value, SubCategoryName.value, 
+  CategoryName.value, dp.value, CostPrice.value, MRP.value, Discount.value)">
+    <br>
+    <div class="row">
+        <div class="col-lg-6">
+          <fieldset class="form-group">
+              <input type="hidden" #ProductId ngModel name="ProductId" [(ngModel)]="product.id">
+              <label>Name of the Product</label>
+              <input class="form-control" #ProductName ngModel name="ProductName" placeholder="Enter name" [(ngModel)]="product.name">
+              <br>
+              <div class="row">
+                  <div class="col-xl-6 text-xs-center" *ngIf = "product['imagepath']">
+                      <label for="InputFile">Current Image</label>
+                      <br>
+                      <img src= {{product.imagepath}} width="50">
+                    </div>
+                <div class="col-xl-6 text-xs-center">
+                  <label>Date of purchase</label>
+                  <div class="form-group">
+                    <div class="input-group datepicker-input">
+                      <input class="form-control" #dp
+                      ngModel name="dp" [(ngModel)]="startDate" ngbDatepicker #d="ngbDatepicker">
+                      <button class="input-group-addon" (click)="d.toggle()" type="button">
+                        <span class="fa fa-calendar"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-xl-6 text-xs-center">
+                  <label for="InputFile">Change Image</label>
+                  <input type="file" accept="image/*" class="form-control-file" name="SubCategoryImage" id="InputFile" (change)="handleFileInput($event)">
+                </div>
+              </div>
+              
+              <br>
+              <div class="row">
+                <div class="col-xl-6 text-xs-center">
+                  <label>Select Category</label>
+                  <select class="form-control" #CategoryName ngModel name="CategoryName" (change)="CategorySelected($event.target.value)" [ngModel]="product.category">
+                    <option *ngFor ="let category of categories" value = {{category.name}} [selected]="category.name == product.category" >{{ category.name}}</option>
+                  </select>
+                </div>
+                <div class="col-xl-6 text-xs-center">
+                  <label>Select Sub-Category</label>
+                  <select class="form-control" #SubCategoryName ngModel name="SubCategoryName" [ngModel]="product.subcategory">
+                    <option *ngFor ="let subCategory of subCategories" value = {{subCategory.name}} [selected]="subCategory.name == product.subcategory">{{ subCategory.name}}</option>
+                  </select>
+                </div>
+              </div>
+              
+              <br>
+              <div class="row">
+                <div class="col-xl-6 text-xs-center">
+                  <label>Cost Price</label>
+                  <input class="form-control" #CostPrice ngModel name="CostPrice" [ngModel]="product.costprice">
+                </div>
+                <div class="col-xl-6 text-xs-center">
+                  <label>MRP</label>
+                  <input class="form-control" #MRP ngModel name="MRP" [ngModel]="product.mrp">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-xl-6 text-xs-center">
+                  <label>Discount-%</label>
+                  <input class="form-control" #Discount ngModel name="Discount" [ngModel]="product.discount">
+                </div>
+              </div>
+              
+            </fieldset>
+          
+        </div>
+    </div>
+    <div class="form-group col-lg-3">
+      
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

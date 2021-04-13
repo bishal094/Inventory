@@ -1,0 +1,154 @@
+<div style="min-height: 800px">
+  <ngx-ui-loader fgsSize = "0" bgsSize = "0" pbThickness = "4" pbColor = "#4CAF50" [loaderId]="'loader-01'" style="min-height: 100%"></ngx-ui-loader>
+  <div class="alert alert-warning" *ngIf="message">
+      <strong>{{ message }}</strong>
+    </div>
+    <div class="row">
+        <div class="card mb-3 col-sm-7">
+          <div class="card-header">
+              Added Sales
+              <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed; ChangeCollapseValue()"
+                      [attr.aria-expanded]="isCollapsed" aria-controls="FilterCollapse" style="float: right;">
+                      {{collapse_value}}
+                  </button>
+          </div>
+          <div id="FilterCollapse" [ngbCollapse]="isCollapsed">
+            <div class="card">
+                <div class="card-body table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Store</th>
+                            <th>Quanity Sold</th>
+                            <th>Discount given</th>
+                            <th>Grand Total</th>
+                            <th>Remove</th>
+                        </tr>
+                        </thead>
+                        <tbody  *ngIf="salesData">
+                            <tr *ngFor ="let sales of salesData">
+                                  <td>{{ sales.name }}</td>
+                                  <td>{{sales.storeName}}</td>
+                                  <td style="text-align: center;">{{ sales.quantity }}</td>
+                                  <td style="text-align: center;">{{ sales.discount_given }}%</td>
+                                  <td style="text-align: center;">{{ sales.sold_price }}</td>
+                                  <td><button type="button" class="btn btn-sm btn-danger" (click)="RemoveSale(sales)">Remove</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <button type="button" class="btn btn-sm btn-success" style="float: right;" (click)="SubmitSalesData()">Submit</button>
+            <br>
+            <br>
+          </div>
+          <div class="card mb-3 col-sm-4" style="position: fixed;right: 12px;min-height: 500px">
+            <div class="card-header">
+                Sale Details {{storeName}}
+                <br>
+            </div>
+          <div class="row">
+            <div class="col-lg-6 text-xs-center">
+              <br>
+                <label>Quantity sold <p style="color:red"> {{ QuantityError }}</p></label>
+                <input [disabled] = "fieldsEnabled" class="form-control" #Quantity ngModel name="Quantity" [(ngModel)]="tempQuantity" (keyup) = QuantityChanged($event) [style] = "Quantitystyle()">
+            </div>
+            <div class="col-lg-6 text-xs-center">
+                <br>
+                <label>MRP<p></p></label>
+                <input [disabled] = "true" class="form-control" #MRP ngModel name="MRP" [(ngModel)]="tempMrp">
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-lg-6 text-xs-center">
+                  <br>
+                  <label>Total<p></p></label>
+                  <input [disabled] = "true" class="form-control" #Total ngModel name="Total" [(ngModel)]="tempTotal">
+              </div>
+              <div class="col-lg-6 text-xs-center">
+                  <br>
+                  <label>Discount % <p style="color:red"> {{ DiscountError }}</p></label>
+                  <input [disabled] = "fieldsEnabled" class="form-control" #Discount ngModel name="Discount" [(ngModel)]="tempDiscount" (keyup) = DiscountChanged($event) [style] = "DiscountStyle()">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6 text-xs-center">
+                  <br>
+                  <label>Date of Sale</label>
+                  <div class="form-group">
+                    <div class="input-group datepicker-input" >
+                      <input class="form-control" placeholder="yyyy-mm-dd" #dp
+                      ngModel name="dp" ngbDatepicker #d="ngbDatepicker" [disabled] = "fieldsEnabled">
+                      <button class="input-group-addon" (click)="d.toggle()" type="button">
+                        <span class="fa fa-calendar"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 text-xs-center">
+                    <br>
+                    <label>Grand Total</label>
+                    <input [disabled] = "true" class="form-control" #GrandTotal ngModel name="GrandTotal" [(ngModel)]="tempGrandTotal">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 text-xs-center">
+                    <br>
+                    <button type="button" [disabled] = "fieldsEnabled" class="btn btn-outline-danger" (click)="ResetSaleForm()">
+                        Cancel
+                    </button>
+                  </div>
+                  <div class="col-lg-4 text-xs-center">
+                      <br>
+                      <button type="button" [disabled] = "confirmDisabled" class="btn btn-outline-primary" (click)="ConfirmSaleData(GrandTotal.value, Discount.value, dp.value, Quantity.value)">
+                          Confirm
+                      </button>
+                  </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="card mb-3 col-sm-7">
+        <div class="card-header">
+            Stock
+            <div class="col-xl-3 text-xs-center" style="float: right;" *ngIf = "canView">
+              <select class="form-control" #StoreFilter ngModel name="StoreFilter" (change)="StoreSelected($event.target.value)" [ngModel]="selectedStoreId">
+                <option *ngFor ="let store of stores" value = {{store.id}} [selected]="store.id == selectedStoreId" >{{ store.name}}</option>
+              </select>
+            </div>
+        </div>
+        <div class="card-body table-responsive">
+            <table class="table" datatable [dtOptions]="dtOptions"
+            [dtTrigger]="dtTrigger">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Product Name</th>
+                    <th>Store Name</th>
+                    <th>Quantity</th>
+                    <th>Maximum Discount</th>
+                    <th>Product Image</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor ="let stock of stocks" [style.background-color]="stock.selected == true ? 'rgba(173,216,230 ,0.8)' : '' ">
+                          <th scope="row">{{ stock.id }}</th>
+                          <td>{{ stock.name }}</td>
+                          <td>{{stock.storeName}}</td>
+                          <td style="text-align: center;">{{ stock.stock_quantity }}</td>
+                          <td style="text-align: center;">{{ stock.discount }}%</td>
+                          <td><img src="{{stock.image_path}}" width="50" ></td>
+                          <td><button type="button" class="btn btn-sm btn-success" (click)="AddSale(stock)">Sale</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+      
+    </div>
+    
+</div>

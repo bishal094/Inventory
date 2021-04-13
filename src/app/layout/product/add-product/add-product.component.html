@@ -1,0 +1,111 @@
+<div class="card mb-3">
+  <div class="alert alert-warning" *ngIf="message">
+    <strong>{{ message }}</strong>
+  </div>
+  <div class="card-header">
+      Add a new Product
+  </div>
+</div>
+  <form role="form" (ngSubmit)="AddProduct(ProductName.value, SubCategoryName.value, CategoryName.value, 
+  dp.value, CostPrice.value, MRP.value, Discount.value, StoreName.value, QuantityValue.value)">
+    <br>
+    <div class="row">
+        <div class="col-sm-6">
+          <fieldset class="form-group">
+              <label>Name for the Product</label>
+              <input class="form-control" #ProductName ngModel name="ProductName" placeholder="Enter name">
+              <br>
+              <div class="row">
+                <div class="col-xl-6 text-xs-center">
+                  <label>Date of purchase</label>
+                  <div class="form-group">
+                    <div class="input-group datepicker-input">
+                      <input class="form-control" placeholder="yyyy-mm-dd" #dp
+                      ngModel name="dp" ngbDatepicker #d="ngbDatepicker">
+                      <button class="input-group-addon" (click)="d.toggle()" type="button">
+                        <span class="fa fa-calendar"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 text-xs-center">
+                  <label for="InputFile">Image</label>
+                  <input type="file" accept="image/*" class="form-control-file" name="SubCategoryImage" id="InputFile" (change)="handleFileInput($event)">
+                </div>
+              </div>
+              
+              <br>
+              <div class="row">
+                <div class="col-xl-6 text-xs-center">
+                  <label>Select Category</label>
+                  <select class="form-control" #CategoryName ngModel name="CategoryName" (change)="CategorySelected($event.target.value)">
+                    <option *ngFor ="let category of categories" value = {{category.id}}|{{category.name}} >{{ category.name}}</option>
+                  </select>
+                </div>
+                <div class="col-xl-6 text-xs-center">
+                  <label>Select Sub-Category</label>
+                  <select class="form-control" #SubCategoryName ngModel name="SubCategoryName">
+                    <option *ngFor ="let subCategory of subCategories" value = {{subCategory.id}}>{{ subCategory.name}}</option>
+                  </select>
+                </div>
+              </div>
+              
+              <br>
+              <div class="row">
+                <div class="col-xl-6 text-xs-center">
+                  <label>Cost Price</label>
+                  <input class="form-control" #CostPrice ngModel name="CostPrice" placeholder="Rs.">
+                </div>
+                <div class="col-xl-6 text-xs-center">
+                  <label>MRP</label>
+                  <input class="form-control" #MRP ngModel name="MRP" placeholder="Rs.">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-xl-6 text-xs-center">
+                  <label>Discount-%</label>
+                  <input class="form-control" #Discount ngModel name="Discount" >
+                </div>
+                
+              </div>
+              
+            </fieldset>
+          
+        </div>
+        <div class="col-lg-6">
+          <fieldset class="form-group">
+            <div class="row" *ngFor ="let addedStore of addedStores">
+                <div class="col-xl-6 text-xs-center form-group">
+                    <label for="disabledSelect">Store</label>
+                    <select id="disabledSelect" class="form-control" disabled="">
+                      <option>{{ addedStore.name }}({{ addedStore.address }})</option>
+                    </select>
+                  </div>
+                  <div class="col-xl-3 text-xs-center">
+                    <label>Quantity</label>
+                    <input class="form-control" id="disabledInput" type="text" placeholder="{{addedStore.quantity}}" disabled="">
+                  </div>
+                  <div class="col-xl-3 text-xs-center">
+                      <button type="button" [disabled] = "buttonsEnabled" style="position: absolute;bottom: 20%;" class="btn btn-danger" (click)="RemoveStoreQuantity(addedStore.name)">Remove Store</button>
+                  </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6 text-xs-center">
+                <label>Select Store</label>
+                <select class="form-control" #StoreName ngModel name="StoreName">
+                  <option *ngFor ="let leftStore of leftStores" value = {{leftStore.id}}|{{leftStore.name}}|{{leftStore.address}} >{{ leftStore.name}}({{ leftStore.address }})</option>
+                </select>
+              </div>
+              <div class="col-xl-3 text-xs-center">
+                <label>Quantity</label>
+                <input class="form-control" #QuantityValue ngModel name="QuantityValue" placeholder="">
+              </div>
+            </div>
+          </fieldset>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" [disabled] = "buttonsEnabled" class="btn btn-success" (click)="AddStoreQuantity(StoreName.value, QuantityValue.value)">Add Store</button>
+        </div>
+    </div>
+    <button [disabled] = "buttonsEnabled" type="submit" class="btn btn-primary">Add</button>
+</form>

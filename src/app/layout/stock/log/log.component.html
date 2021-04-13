@@ -1,0 +1,32 @@
+<div [@routerTransition] style="min-height: 800px">
+  <ngx-ui-loader fgsSize = "0" bgsSize = "0" pbThickness = "4" pbColor = "#4CAF50" [loaderId]="'loader-01'" style="min-height: 100%"></ngx-ui-loader>
+  <div class="card mb-3">
+    <div class="card-header">Stock log</div>
+    <br />
+    <table class="table" datatable [dtOptions]="dtOptions"
+    [dtTrigger]="dtTrigger">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Product Name</th>
+            <th>Store Name</th>
+            <th>Quantity</th>
+            <th>Action</th>
+            <th>Event Occurrence Time</th>
+            <th>Action completed By</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor ="let log of logs">
+            <th scope="row">{{ log.id }}</th>
+            <td>{{ log.product_name }}</td>
+            <td>{{log.storeName}}</td>
+            <td>{{ log.stock_quantity }}</td>
+            <td>{{ log.status }}</td>
+            <td>{{ log.updated_at }}</td>
+            <td>{{ log.added_by }}</td>
+          </tr>
+        </tbody>
+    </table>
+  </div>
+</div>
